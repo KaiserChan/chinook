@@ -1,0 +1,62 @@
+Provide one or more Active Record queries that retrieve the requested data for each of the following:
+
+1) Find the albums recorded by the artist Queen.
+
+    Artist.where("name = ?", 'Queen')
+    Album.where("artist_id = ?", '51')
+
+
+2) Count how many tracks belong to the media type "Protected MPEG-4 video file".
+
+    MediaType.where("name = ?", 'Protected MPEG-4 video file')
+    Track.where("media_type_id = ?", '3').count
+
+
+3) Find the genre with the name "Hip Hop/Rap".
+
+    Genre.where("name = ?", 'Hip Hop/Rap')
+
+
+4) Count how many tracks belong to the "Hip Hop/Rap" genre
+
+    Genre.where("name = ?", 'Hip Hop/Rap')
+    Track.where("genre_id = ?", '17').count
+
+
+5) Find the total amount of time required to listen to all the tracks in the database.
+
+    Track.sum("milliseconds")
+
+
+6) Find the highest price of any track that has the media type "MPEG audio file".
+
+    MediaType.where("name = ?", 'MPEG audio file')
+    tracks = Track.where("media_type_id = ?", '1')
+    tracks.maximum("unit_price")
+
+
+7) Find the name of the most expensive track that has the media type "MPEG audio file".
+
+    tracks.first.name
+
+
+8) Find the 2 oldest artists.
+
+    Artist.order(created_at: :asc).limit(2)
+
+
+9) Find the least expensive track that has the genre "Electronica/Dance".
+
+    Genre.where("name = ?", 'Electronica/Dance')
+    cheap_track = Track.where("genre_id = ?", '15')
+    cheap_track.minimum('unit_price')
+    cheap_track.first.name
+
+
+Find all "MPEG autio file" tracks in the genre "Electronica/Dance".
+
+Genre.where("name = ?", 'Electronica/Dance')
+ed_tracks = Track.where("genre_id = ?", '15')
+MediaType.where("name = ?", 'MPEG audio file')
+ed_tracks.where("media_type_id = ?", '1')
+ed_tracks.where("media_type_id = ?", '1').count 
